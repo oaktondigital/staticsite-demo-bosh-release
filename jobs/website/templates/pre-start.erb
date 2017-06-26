@@ -13,5 +13,5 @@ mkdir -p $(dirname $NGINX_DIR)
 if [[ -d "$NGINX_DIR" ]]; then
   rm -rf $NGINX_DIR
   fi
-cp -a /var/vcap/packages/website/website-git $NGINX_DIR
+cp -a /var/vcap/packages/website/website-repo $NGINX_DIR
 chown -R vcap:vcap $NGINX_DIR
