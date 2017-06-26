@@ -26,6 +26,7 @@ jobs:
             source: {repository: concourse/bosh-cli}
           inputs:
             - { name: git }
+            - { name: website-repo }
           run:
             path: ./git/ci/scripts/testflight
             args: []
