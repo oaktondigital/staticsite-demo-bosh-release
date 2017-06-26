@@ -16,9 +16,11 @@ header() {
 	echo
 }
 
+echo "0+dev.1" > /tmp/version
 if [[ -z ${VERSION_FROM} ]]; then
-  VERSION_FROM='0+dev.1'
+  VERSION_FROM=/tmp/version
 fi
+VERSION=$(cat ${VERSION_FROM})
 
 
 ## no need in bosh v2, just use cli to log in
@@ -50,7 +52,7 @@ export BOSH_CLIENT_SECRET=${BOSH_PASSWORD}
 bosh -n -e ${BOSH_TARGET} -d ${BOSH_DEPLOYMENT} deld --force || echo "continuing on..."
 
 header "Creating candidate BOSH release..."
-bosh -n create-release --force --version=${VERSION_FROM}
+bosh -n create-release --force --version=${VERSION}
 header "Uploading BOSH release..."
 bosh -n -e ${BOSH_TARGET} upload-release --rebase || echo "Continuing..."
 
