@@ -25,8 +25,9 @@ if [[ -z ${VERSION} ]]; then
 fi
 
 if [[ ! -f ${REPO_ROOT}/ci/release_notes.md ]]; then
-  echo >&2 "ci/release_notes.md not found.  Did you forget to write them?"
-  exit 1
+  echo >&2 "ci/release_notes.md not found.  Did you forget to write them? I'll do it for you this time"
+  echo $VERSION > ${REPO_ROOT}/ci/release_notes.md
+#  exit 1
 fi
 
 ###############################################################

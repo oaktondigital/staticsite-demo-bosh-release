@@ -45,11 +45,11 @@ jobs:
 #        params:
 #          channe: ((slack.channel))
 #          text: '((pipeline.name)): testflight success!'
-      on_failure:
-        put: notify
-        params:
-          channel:  ((slack.channel))
-          text:    '((pipeline.name)): testflight failed :('
+#      on_failure:
+#        put: notify
+#        params:
+#          channel:  ((slack.channel))
+#          text:    '((pipeline.name)): testflight failed :('
 
   - name: rc
     public: true
@@ -111,6 +111,7 @@ jobs:
           inputs:
             - name: version
             - name: git
+            - name: website-repo
           outputs:
             - name: gh
             - name: pushme
@@ -161,11 +162,11 @@ jobs:
 #        params:
 #          channel: ((slack.channel))
 #          text: '((pipeline.name)): new release'
-      on_failure:
-        put: notify
-        params:
-          channel:  ((slack.channel))
-          text:    '((pipeline.name)): shipit job failed'
+#      on_failure:
+#        put: notify
+#        params:
+#          channel:  ((slack.channel))
+#          text:    '((pipeline.name)): shipit job failed'
 
 
 resource_types:
