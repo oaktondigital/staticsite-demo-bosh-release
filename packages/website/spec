@@ -3,4 +3,4 @@ name: website
 
 dependencies: []
 
-files: [ website/website-git.tar.gz ]
+files: [ website/website-repo.tar.gz ]
