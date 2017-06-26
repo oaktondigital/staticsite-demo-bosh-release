@@ -1,6 +1,7 @@
 config/private.yml
 blobs
 dev_releases
+src/**/website-repo.tar.gz
 releases/*.tgz
 releases/**/*.tgz
 .dev_builds

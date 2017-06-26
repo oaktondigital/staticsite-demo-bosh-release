@@ -63,7 +63,7 @@ header "Cleaning up..."
 bosh -n -e ${BOSH_TARGET} -d ${BOSH_DEPLOYMENT} deld --force || echo "continuing on..."
 bosh -n -e ${BOSH_TARGET} clean-up --client=${BOSH_USERNAME} || echo "continuing on..."
 
-rm src/website/website-repo.tar.gz
+#rm src/website/website-repo.tar.gz
 
 echo
 echo "SUCCESS"
