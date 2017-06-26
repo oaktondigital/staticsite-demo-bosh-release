@@ -3,7 +3,7 @@ NGINX_DIR=<%= p('website_docroot') %>
 if [[ -d "$NGINX_DIR" ]]; then
   rm -rf $NGINX_DIR
 else
-  mkdir -p dirname "$NGINX_DIR"
+  mkdir -p $(dirname "$NGINX_DIR")
 fi
 cp -a /var/vcap/packages/website/website-repo $NGINX_DIR
 chown -R vcap:vcap $NGINX_DIR
