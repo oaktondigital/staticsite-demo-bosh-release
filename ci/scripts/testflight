@@ -17,7 +17,7 @@ header() {
 }
 
 if [[ -z ${VERSION_FROM} ]]; then
-  VERSION_FROM='0.1dev'
+  VERSION_FROM='0+dev.1'
 fi
 
 
