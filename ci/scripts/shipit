@@ -43,6 +43,10 @@ export BOSH_CA_CERT=${BOSH_CA_CERT}
 export BOSH_CLIENT=${BOSH_USERNAME}
 export BOSH_CLIENT_SECRET=${BOSH_PASSWORD}
 
+tar czvf website-repo.tar.gz website-repo
+mkdir -p ${REPO_ROOT}/src/website
+mv website-repo.tar.gz ${REPO_ROOT}/src/website/.
+
 (cd ${REPO_ROOT}
  mkdir -p releases/${RELEASE_NAME2}/${RELEASE_NAME2}
  bosh -n create-release --tarball=releases/${RELEASE_NAME2}/${RELEASE_NAME2}-${VERSION}.tgz --version "${VERSION}")

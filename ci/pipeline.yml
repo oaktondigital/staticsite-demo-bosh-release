@@ -96,6 +96,7 @@ jobs:
         aggregate:
           - { get: version, passed: [rc], params: {bump: final} }
           - { get: git,     passed: [rc] }
+          - { get: website-repo, passed: [testflight]}
       - name: release
         task: release
         config:
@@ -106,6 +107,7 @@ jobs:
           inputs:
             - name: version
             - name: git
+            - name: website-repo
           outputs:
             - name: gh
             - name: pushme
