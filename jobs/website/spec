@@ -1,0 +1,12 @@
+---
+name: website
+
+templates:
+  pre-start.erb: bin/pre-start
+
+packages: [ website ]
+
+properties:
+  website_docroot:
+    description: Nginx docroot
+    default: /var/vcap/store/nginx/www/document_root
