@@ -1,10 +1,16 @@
 #!/bin/bash -ex
+###NGINX_DIR=<%= p('website_docroot') %>
+####if [ -d $NGINX_DIR ]; then
+###rm -rf $NGINX_DIR
+####fi
+###mkdir -p $(dirname $NGINX_DIR)
+###cp -a /var/vcap/packages/website/website-repo $NGINX_DIR
+###chown -R vcap:vcap $NGINX_DIR
+
+#!/bin/bash -ex
 NGINX_DIR=<%= p('website_docroot') %>
-#if [ -d $NGINX_DIR ]; then
-rm -rf $NGINX_DIR
-#fi
-mkdir -p $(dirname $NGINX_DIR)
-cp -a /var/vcap/packages/website/website-repo $NGINX_DIR
+if [[ -d "$NGINX_DIR" ]]; then
+  rm -rf $NGINX_DIR
+fi
+cp -a /var/vcap/packages/website/website-git $NGINX_DIR
 chown -R vcap:vcap $NGINX_DIR
-
-
