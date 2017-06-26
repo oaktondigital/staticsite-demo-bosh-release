@@ -45,11 +45,11 @@ jobs:
 #        params:
 #          channe: ((slack.channel))
 #          text: '((pipeline.name)): testflight success!'
-#      on_failure:
-#        put: notify
-#        params:
-#          channel:  ((slack.channel))
-#          text:    '((pipeline.name)): testflight failed :('
+      on_failure:
+        put: notify
+        params:
+          channel:  ((slack.channel))
+          text:    '((pipeline.name)): testflight failed :('
 
   - name: rc
     public: true
@@ -57,6 +57,7 @@ jobs:
     - do:
       - aggregate:
           - { get: git,     trigger: true,  passed: [testflight] }
+          - { get: website-repo, trigger: true, passed: [testflight]}
           - { get: version, trigger: true, params: {pre: rc} }
       - put: version
         params: {file: version/number}
@@ -99,7 +100,7 @@ jobs:
         aggregate:
           - { get: version, passed: [rc], params: {bump: final} }
           - { get: git,     passed: [rc] }
-          - { get: website-repo, passed: [testflight]}
+          - { get: website-repo, passed: [rc]}
       - name: release
         task: release
         config:
@@ -110,7 +111,6 @@ jobs:
           inputs:
             - name: version
             - name: git
-            - name: website-repo
           outputs:
             - name: gh
             - name: pushme
@@ -161,11 +161,11 @@ jobs:
 #        params:
 #          channel: ((slack.channel))
 #          text: '((pipeline.name)): new release'
-#      on_failure:
-#        put: notify
-#        params:
-#          channel:  ((slack.channel))
-#          text:    '((pipeline.name)): shipit job failed'
+      on_failure:
+        put: notify
+        params:
+          channel:  ((slack.channel))
+          text:    '((pipeline.name)): shipit job failed'
 
 
 resource_types:
@@ -193,9 +193,6 @@ resources:
       uri:         ((github.uri))
       branch:      ((github.branch))
       private_key: ((github.private_key))
-#      ignore_paths:
-#        - ci/release_notes.md
-#        - ci/**
 
   - name: version
     type: semver
