@@ -184,9 +184,9 @@ resources:
   - name: website-repo
     type: git
     source:
-      uri: ((github.websiteuri))
-      branch: ((github.branch))
-      private_key: ((github.private_key))
+      uri: ((website_git.websiteuri))
+      branch: ((website_git.branch))
+      private_key: ((website_git.private_key))
 
   - name: git
     type: git
@@ -204,7 +204,7 @@ resources:
       access_key_id:     ((aws.access_key))
       secret_access_key: ((aws.secret_key))
       initial_version:   ((initial_version))
-      endpoint: http://10.244.0.22:9001
+      endpoint: ((aws.endpoint))
 
   - name: notify
     type: slack-notification
@@ -225,5 +225,5 @@ resources:
       regexp:            "((name))-(.*).tgz"
       access_key_id:     ((aws.access_key))
       secret_access_key: ((aws.secret_key))
-      endpoint: http://10.244.0.22:9001
+      endpoint: ((aws.endpoint))
 

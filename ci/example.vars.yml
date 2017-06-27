@@ -1,0 +1,39 @@
+---
+
+name: 'website'
+release: 'website'
+initial_version: 1.0.0
+pipeline:
+  name: 'staticsite-boshrelease'
+slack:
+  channel: ## SLACK CHANNEL
+  webhook: ## SLACK WEBOOK
+aws:
+  access_key: 'minio'
+  secret_key: 'minio123'
+  bucket: 'website'
+  endpoint: 'http://10.244.0.22:9001'
+#  endpoint: ''
+website_git:
+  websiteuri: 'git@github.com:oaktondigital/staticsite-demo.git'
+  branch: 'master'
+  private_key: |
+    -----BEGIN RSA PRIVATE KEY-----
+    -----END RSA PRIVATE KEY-----
+github:
+  uri: 'git@github.com:oaktondigital/staticsite-demo-bosh-release.git'
+  repo: 'staticsite-demo-bosh-release'
+  owner: 'oaktondigital'
+  access_token: ## GITHUB TOKEN
+  branch: 'master'
+  private_key: |
+    -----BEGIN RSA PRIVATE KEY-----
+    -----END RSA PRIVATE KEY-----
+bosh:
+  deployment: 'website'
+  target: http://192.168.50.6:25555
+  username: 'admin'
+  password: '9f4uus9swgz97xm90jbg'
+  ca_cert: |
+    -----BEGIN CERTIFICATE-----
+    -----END CERTIFICATE-----
