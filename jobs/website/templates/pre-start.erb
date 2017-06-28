@@ -4,5 +4,5 @@ mkdir -p $(dirname $WEBSITE_DIR)
 if [[ -d "$WEBSITE_DIR" ]]; then
   rm -rf $WEBSITE_DIR
   fi
-cp -a /var/vcap/packages/website/website-repo $WEBSITE_DIR
+cp -a /var/vcap/packages/website/git $WEBSITE_DIR
 chown -R vcap:vcap $WEBSITE_DIR
