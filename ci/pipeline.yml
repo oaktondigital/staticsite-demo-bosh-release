@@ -16,8 +16,9 @@ jobs:
     plan:
     - do:
       - aggregate:
-        - { get: website-repo, trigger: true}
+        #        - { get: website-repo, trigger: true}
         - { get: git, trigger: true }
+        - { get: bosh-stemcell }
         - { get: version }
       - task: testflight
         config:
@@ -27,7 +28,7 @@ jobs:
             source: {repository: concourse/bosh-cli}
           inputs:
             - { name: git }
-            - { name: website-repo }
+#            - { name: website-repo }
             - { name: version }
           run:
             path: ./git/ci/scripts/testflight
@@ -56,7 +57,7 @@ jobs:
     - do:
       - aggregate:
           - { get: git,     trigger: true,  passed: [testflight] }
-          - { get: website-repo, trigger: true, passed: [testflight]}
+#          - { get: website-repo, trigger: true, passed: [testflight]}
           - { get: version, trigger: true, params: {pre: rc} }
       - put: version
         params: {file: version/number}
@@ -99,7 +100,7 @@ jobs:
         aggregate:
           - { get: version, passed: [rc], params: {bump: final} }
           - { get: git,     passed: [rc] }
-          - { get: website-repo, passed: [rc]}
+#          - { get: website-repo, passed: [rc]}
       - name: release
         task: release
         config:
@@ -110,7 +111,7 @@ jobs:
           inputs:
             - name: version
             - name: git
-            - name: website-repo
+#            - name: website-repo
           outputs:
             - name: gh
             - name: pushme
@@ -177,12 +178,12 @@ resource_types:
       repository: cfcommunity/slack-notification-resource
 
 resources:
-  - name: website-repo
-    type: git
-    source:
-      uri: ((website_git.websiteuri))
-      branch: ((website_git.branch))
-      private_key: ((website_git.private_key))
+#  - name: website-repo
+#    type: git
+#    source:
+#      uri: ((website_git.websiteuri))
+#      branch: ((website_git.branch))
+#      private_key: ((website_git.private_key))
 
   - name: git
     type: git
@@ -225,3 +226,7 @@ resources:
       endpoint: ((aws.endpoint))
       region_name: ((aws.region))
 
+  - name: bosh-stemcell
+    type: bosh-io-stemcell
+    source:
+      name: bosh-warden-boshlite-ubuntu-trusty-go_agent 

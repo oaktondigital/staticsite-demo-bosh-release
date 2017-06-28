@@ -44,9 +44,9 @@ export BOSH_CA_CERT=${BOSH_CA_CERT}
 export BOSH_CLIENT=${BOSH_USERNAME}
 export BOSH_CLIENT_SECRET=${BOSH_PASSWORD}
 
-tar czvf website-repo.tar.gz website-repo
-mkdir -p git/src/website
-mv website-repo.tar.gz git/src/website/.
+#tar czvf website-repo.tar.gz website-repo
+#mkdir -p git/src/website
+#mv website-repo.tar.gz git/src/website/.
 
 (cd git
  mkdir -p releases/${RELEASE_NAME2}/${RELEASE_NAME2}
