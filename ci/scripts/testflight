@@ -38,9 +38,9 @@ VERSION=$(cat ${VERSION_FROM})
 
 set -e
 tar czvf website-repo.tar.gz website-repo
-mkdir -p ${REPO_ROOT}/src/website
-mv website-repo.tar.gz ${REPO_ROOT}/src/website/.
-cd ${REPO_ROOT}
+mkdir -p git/src/website
+mv website-repo.tar.gz git/src/website/.
+cd git
 header "Pulling in any git submodules..."
 git submodule update --init --recursive --force
 
