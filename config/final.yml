@@ -3,5 +3,6 @@ name: website
 blobstore:
   provider: s3
   options:
-    endoint: http://10.244.0.22:9001
-    bucket_name: website
+    #    endoint: http://10.244.0.22:9001
+    bucket_name: oaktonwebsite
+    region: 'ap-southeast-2'

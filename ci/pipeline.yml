@@ -205,6 +205,7 @@ resources:
       secret_access_key: ((aws.secret_key))
       initial_version:   ((initial_version))
       endpoint: ((aws.endpoint))
+      region_name: ((aws.region))
 
   - name: notify
     type: slack-notification
@@ -226,4 +227,5 @@ resources:
       access_key_id:     ((aws.access_key))
       secret_access_key: ((aws.secret_key))
       endpoint: ((aws.endpoint))
+      region_name: ((aws.region))
 
