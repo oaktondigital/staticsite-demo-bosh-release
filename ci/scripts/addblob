@@ -2,6 +2,14 @@
 
 set -eu -o pipefail
 
+cat > bosh-release/config/private.yml << EOF
+---
+blobstore:
+  options:
+    access_key_id: ${AWS_ACCESS_KEY}
+    secret_access_key: ${AWS_SECRET_KEY}
+EOF
+
 cd bosh-release
 
 bosh add-blob ../git/*.tar.gz ${BLOB}
