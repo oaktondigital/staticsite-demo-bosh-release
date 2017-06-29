@@ -2,7 +2,7 @@
 
 set -eu -o pipefail
 
-cd bosh-release
+#cd bosh-release
 
 bosh add-blob git/*.tar.gz ${BLOB}
 bosh upload-blobs
@@ -12,9 +12,7 @@ git config --global user.email "cicd@oakton.digital"
 
 git commit -am 'bump release blob'
 
-cd ..
-
-cp -a git-bosh-release-get pushme
+cp -a bosh-release pushgit
 
 echo "finished uploading a new source blob"
 exit 0
