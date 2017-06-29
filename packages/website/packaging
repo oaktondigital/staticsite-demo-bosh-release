@@ -1,6 +1,6 @@
 set -e -x
 
 echo "Moving site to install target"
-tar xzvf website/website-repo.tar.gz
+tar xzvf website/website-repo.tar.gz -C git
 cp -a git ${BOSH_INSTALL_TARGET}
 
