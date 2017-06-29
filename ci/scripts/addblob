@@ -12,7 +12,7 @@ EOF
 
 cd bosh-release
 
-bosh add-blob ../git/*.tar.gz ${BLOB}
+bosh add-blob ../github-release/*.tar.gz ${BLOB}
 bosh upload-blobs
 
 git config --global user.name "CICD Robot"
