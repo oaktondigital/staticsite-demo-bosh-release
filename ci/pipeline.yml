@@ -3,35 +3,36 @@
 groups:
   - name: '((pipeline.name))'
     jobs:
-      - testflight
-      - rc
-      - shipit
-      - major
-      - minor
+      - test-release
+      - bump-rc
+      - promote-release
+      - bump-major
+      - bump-minor
 
 jobs:
-  - name: testflight
+  - name: test-release
     public: true
     serial: true
     plan:
     - do:
       - aggregate:
-        #        - { get: website-repo, trigger: true}
-        - { get: git, trigger: true }
-        - { get: bosh-stemcell }
+        #- { get: ops_files }
+        - { get: bosh-release, trigger: true }
         - { get: version }
-      - task: testflight
+        - { get: bosh-stemcell, trigger: true }
+      - task: test-release
         config:
           platform: linux
           image_resource:
             type: docker-image
             source: {repository: concourse/bosh-cli}
           inputs:
-            - { name: git }
-#            - { name: website-repo }
+            - { name: bosh-release }
             - { name: version }
+            - { name: bosh-stemcell }
+            #- { name: ops_files }
           run:
-            path: ./git/ci/scripts/testflight
+            path: ./bosh-release/ci/scripts/testrelease
             args: []
           params:
             VERSION_FROM: version/number
@@ -40,6 +41,7 @@ jobs:
             BOSH_PASSWORD:   ((bosh.password))
             BOSH_DEPLOYMENT: ((bosh.deployment))
             BOSH_CA_CERT: ((bosh.ca_cert))
+#            TEST_ERRAND: ((bosh.test-errand))
 #      on_success:
 #        put: notify
 #        params:
@@ -51,13 +53,12 @@ jobs:
 #          channel:  ((slack.channel))
 #          text:    '((pipeline.name)): testflight failed :('
 
-  - name: rc
+  - name: bump-rc
     public: true
     plan:
     - do:
       - aggregate:
-          - { get: git,     trigger: true,  passed: [testflight] }
-#          - { get: website-repo, trigger: true, passed: [testflight]}
+          - { get: bosh-release,     trigger: true,  passed: [test-release] }
           - { get: version, trigger: true, params: {pre: rc} }
       - put: version
         params: {file: version/number}
@@ -67,7 +68,7 @@ jobs:
           channel:  ((slack.channel))
           text:    '((pipeline.name)) : rc job failed '
 
-  - name: minor
+  - name: bump-minor
     public: true
     plan:
     - do:
@@ -79,7 +80,7 @@ jobs:
           channel:  ((slack.channel))
           text:    '((pipeline.name)) : minor job failed'
 
-  - name: major
+  - name: bump-major
     public: true
     plan:
     - do:
@@ -91,16 +92,15 @@ jobs:
           channel:  ((slack.channel))
           text:    '((pipeline.name)) : major job failed'
 
-  - name: shipit
+  - name: promote-release
     public: true
     serial: true
     plan:
     - do:
       - name: inputs
         aggregate:
-          - { get: version, passed: [rc], params: {bump: final} }
-          - { get: git,     passed: [rc] }
-#          - { get: website-repo, passed: [rc]}
+          - { get: version, passed: [bump-rc], params: {bump: final} }
+          - { get: bosh-release,     passed: [bump-rc] }
       - name: release
         task: release
         config:
@@ -110,13 +110,12 @@ jobs:
             source: {repository: concourse/bosh-cli}
           inputs:
             - name: version
-            - name: git
-#            - name: website-repo
+            - name: bosh-release
           outputs:
             - name: gh
             - name: pushme
           run:
-            path: ./git/ci/scripts/shipit
+            path: ./bosh-release/ci/scripts/cutrelease
             args: []
           params:
             VERSION_FROM: version/number
@@ -135,7 +134,7 @@ jobs:
             AWS_SECRET_KEY:       ((aws.secret_key))
 
       - name: upload-git
-        put: git
+        put: bosh-release
         params:
           rebase: true
           repository: pushme/git
@@ -178,19 +177,15 @@ resource_types:
       repository: cfcommunity/slack-notification-resource
 
 resources:
-#  - name: website-repo
-#    type: git
-#    source:
-#      uri: ((website_git.websiteuri))
-#      branch: ((website_git.branch))
-#      private_key: ((website_git.private_key))
-
-  - name: git
+  - name: bosh-release
     type: git
     source:
       uri:         ((github.uri))
       branch:      ((github.branch))
       private_key: ((github.private_key))
+#      ignore_paths:
+#        - ci/release_notes.md
+#        - ci/**
 
   - name: version
     type: semver
@@ -201,8 +196,8 @@ resources:
       access_key_id:     ((aws.access_key))
       secret_access_key: ((aws.secret_key))
       initial_version:   ((initial_version))
-      endpoint: ((aws.endpoint))
       region_name: ((aws.region))
+      endpoint: ((aws.endpoint))
 
   - name: notify
     type: slack-notification
@@ -216,17 +211,24 @@ resources:
       repository:   ((github.repo))
       access_token: ((github.access_token))
 
-  - name: blobstore 
+  - name: blobstore
     type: s3
     source:
       bucket:            ((aws.bucket))
       regexp:            "((name))-(.*).tgz"
       access_key_id:     ((aws.access_key))
       secret_access_key: ((aws.secret_key))
-      endpoint: ((aws.endpoint))
       region_name: ((aws.region))
+      endpoint: ((aws.endpoint))
 
   - name: bosh-stemcell
     type: bosh-io-stemcell
     source:
-      name: bosh-warden-boshlite-ubuntu-trusty-go_agent 
+      name: bosh-warden-boshlite-ubuntu-trusty-go_agent
+
+#  - name: ops_files
+#    type: git
+#    source:
+#      uri:         ((ops_files.uri))
+#      branch:      ((ops_files.branch))
+#      private_key: ((ops_files.private_key))
