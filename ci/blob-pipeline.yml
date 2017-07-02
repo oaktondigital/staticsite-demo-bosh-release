@@ -1,29 +1,30 @@
 ---
+
 groups:
   - name: '((pipeline.name))'
     jobs:
-      - blob
+      - create-blob
 
 jobs:
-  - name: blob
+  - name: create-blob
     public: true
     serial: true
     plan:
     - do:
       - aggregate:
-        - get: git
+        - get: github-release
           trigger: true
           params:
             include_source_tarball: true
         - get: bosh-release
-      - task: add-blob
+      - task: add-upload-blob
         config:
           platform: linux
           image_resource:
             type: docker-image
             source: {repository: concourse/bosh-cli}
           inputs:
-            - { name: git }
+            - { name: github-release }
             - { name: bosh-release }
           outputs:
             - { name: pushgit }
@@ -40,7 +41,7 @@ jobs:
           repository: pushgit/bosh-release
 
 resources:
-  - name: git
+  - name: github-release
     type: github-release
     source:
       owner: ((git.owner))
@@ -53,3 +54,4 @@ resources:
       uri:         ((bosh-release.uri))
       branch:      ((bosh-release.branch))
       private_key: ((bosh-release.private_key))
+
