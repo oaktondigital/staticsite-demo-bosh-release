@@ -19,6 +19,7 @@ bosh add-blob ../github-release/*.tar.gz ${PACKAGE_NAME}/${NEW_FILE}
 bosh upload-blobs
 
 sed -i "s/${OLDFILE}/${NEWFILE}" packages/${PACKAGE_NAME}/spec
+sed -i "s/${OLDFILE}/${NEWFILE}" packages/${PACKAGE_NAME}/packaging
 
 git config --global user.name "CICD Robot"
 git config --global user.email "cicd@oakton.digital"
