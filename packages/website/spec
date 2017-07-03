@@ -4,4 +4,4 @@ name: website
 dependencies: []
 
 files:
-  - website/website-repo.tar.gz
+  - website/website-release-1.0.4.tar.gz
