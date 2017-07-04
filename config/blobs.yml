@@ -6,6 +6,10 @@ website/website-release-1.0.5.tar.gz:
   size: 766745
   object_id: 9896cee7-88e5-485b-4479-f43917c409a0
   sha: 4a966056bdee790bd2e3aa7892f93a938dbc1b3a
+website/website-release-1.0.6.tar.gz:
+  size: 767401
+  object_id: 4c00c770-8a22-4fca-6f52-196327425611
+  sha: 2dfbc69b07c57248d4519de0c2def9f7fd598f9b
 website/website-repo.tar.gz:
   size: 766741
   object_id: 3a0a5683-a3fa-405f-595c-e15230ae4564
