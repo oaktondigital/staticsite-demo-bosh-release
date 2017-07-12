@@ -14,3 +14,7 @@ website/website-release-1.0.9.tar.gz:
   size: 770398
   object_id: 7206d835-d76e-453a-47d3-5658a41fd766
   sha: d84f7a52167be6a6018f2515ae1e372e6efcb231
+website/website-release-1.0.10.tar.gz:
+  size: 770405
+  object_id: f2e3f138-b136-4ed8-7915-eecf96447c5b
+  sha: 8ab32155a74f2815477d5254509487c0dd747697
