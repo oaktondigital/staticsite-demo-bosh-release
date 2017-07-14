@@ -1,0 +1,19 @@
+name: website
+version: 1.1.5
+commit_hash: 419a0c2
+uncommitted_changes: false
+jobs:
+- name: website
+  version: adf121b2e5b1c16ccfd828853713038d2714852a
+  fingerprint: adf121b2e5b1c16ccfd828853713038d2714852a
+  sha1: 9d42e3611043f8708662ec3921861dcea9de549b
+packages:
+- name: website
+  version: 532ad39700ea3912908146a6a63ae558981e2470
+  fingerprint: 532ad39700ea3912908146a6a63ae558981e2470
+  sha1: a9be8c0411409aa9006b3bae2d31ed6c5bc88fcb
+  dependencies: []
+license:
+  version: 8be3a6c8b8dcef3ab0bed212ec9ab05e5e0e234b
+  fingerprint: 8be3a6c8b8dcef3ab0bed212ec9ab05e5e0e234b
+  sha1: a8ba68e8ef9cdaab1c329e3e8aba0c7e27b1bd2e
