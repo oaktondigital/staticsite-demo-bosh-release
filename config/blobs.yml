@@ -1,23 +1,3 @@
-website/website-release-1.0.6.tar.gz:
-  size: 767401
-  object_id: fe364e8a-4d6d-41cf-47e9-8fefd0018451
-  sha: 2dfbc69b07c57248d4519de0c2def9f7fd598f9b
-website/website-release-1.0.7.tar.gz:
-  size: 767443
-  object_id: 3b1d3933-5b8d-4d38-4773-8e344b6ddc90
-  sha: a3090ff33d17a1429eb04f652111c394434cc170
-website/website-release-1.0.8.tar.gz:
-  size: 770399
-  object_id: 4ce93524-c7f6-4452-65ba-0f05a93b079e
-  sha: 510a095e3ce5475336d55c0b5ea759f264288326
-website/website-release-1.0.9.tar.gz:
-  size: 770398
-  object_id: 7206d835-d76e-453a-47d3-5658a41fd766
-  sha: d84f7a52167be6a6018f2515ae1e372e6efcb231
-website/website-release-1.0.10.tar.gz:
-  size: 770405
-  object_id: f2e3f138-b136-4ed8-7915-eecf96447c5b
-  sha: 8ab32155a74f2815477d5254509487c0dd747697
 website/website-release-1.0.11.tar.gz:
   size: 770410
   object_id: 5df4f051-01e0-4bc8-5fc8-4e4ef0643a98
