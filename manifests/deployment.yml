@@ -7,7 +7,7 @@ releases:
 
 stemcells:
 - alias: default
-  name: bosh-warden-boshlite-ubuntu-trusty-go_agent
+  os: ubuntu-trusty
   version: latest
 
 instance_groups:
